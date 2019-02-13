@@ -1,68 +1,156 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## 第一步 安装electron
+创建create-react-app项目：
+create-react-app app
+(或者 npx create-react-app app)
 
-## Available Scripts
+cd app
 
-In the project directory, you can run:
+安装electron：
+npm install electron --save
+npm install --save-dev electron-builder
 
-### `npm start`
+安装foreman:
+npm install foreman --save-dev
 
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+修改package.json中的scripts:
+  "scripts": {
+    "start": "nf start -p 3000",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject",
+    "electron": "electron .",
+    "electron-start": "node src/start-react",
+    "react-start": "BROWSER=none react-scripts start",
+    "pack": "build --dir",
+    "dist": "npm run build && build",
+    "postinstall": "install-app-deps"
+  },
 
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
+并添加：
+  "homepage": "./",
+  "main": "src/electron-starter.js",
+  "build": {
+    "appId": "com.electron.electron-with-create-react-app",
+    "win": {
+      "iconUrl": "https://cdn2.iconfinder.com/data/icons/designer-skills/128/react-256.png"
+    },
+    "directories": {
+      "buildResources": "public"
+    }
+  }
 
-### `npm test`
+在项目根目录下添加Procfile文件：
+react: npm run react-start
+electron: npm run electron-start
 
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+在项目的src/目录下添加electron-starter.js文件：
+```javascript
+const electron = require('electron')
+const app = electron.app
+const BrowserWindow = electron.BrowserWindow
 
-### `npm run build`
+const path = require('path')
+const url = require('url')
 
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
+let mainWindow
 
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
+function createWindow() {
+  mainWindow = new BrowserWindow({ width: 1050, height: 700, titleBarStyle: 'hidden' })
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+  mainWindow.loadURL(
+    process.env.ELECTRON_START_URL ||
+      url.format({
+        pathname: path.join(__dirname, '/../build/index.html'),
+        protocol: 'file:',
+        slashes: true
+      })
+  )
 
-### `npm run eject`
+  mainWindow.on('closed', () => {
+    mainWindow = null
+  })
+}
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+app.on('ready', createWindow)
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+app.on('window-all-closed', () => {
+  if (process.platform !== 'darwin') {
+    app.quit()
+  }
+})
 
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+app.on('activate', () => {
+  if (mainWindow === null) {
+    createWindow()
+  }
+})
+```
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+在src下再添加start-react.js文件：
+```javascript
+const net = require('net')
+const childProcess = require('child_process')
 
-## Learn More
+const port = process.env.PORT ? process.env.PORT - 100 : 3000
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+process.env.ELECTRON_START_URL = `http://localhost:${port}`
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+const client = new net.Socket()
 
-### Code Splitting
+let startedElectron = false
+const tryConnection = () => {
+  client.connect(
+    { port },
+    () => {
+      client.end()
+      if (!startedElectron) {
+        console.log('starting electron')
+        startedElectron = true
+        const exec = childProcess.exec
+        exec('npm run electron')
+      }
+    }
+  )
+}
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
+tryConnection()
 
-### Analyzing the Bundle Size
+client.on('error', () => {
+  setTimeout(tryConnection, 1000)
+})
+```
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
+到这里启动它是没有问题了
 
-### Making a Progressive Web App
+## 第二步 安装antd
+cnpm install --save antd
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
+到这里其实正常的使用antd是没有问题的，不过考虑到性能问题，需要进行按需加载的配置
+cnpm install --save react-app-rewired customize-cra babel-plugin-import
 
-### Advanced Configuration
+将package.json中的scripts改为：
+  "scripts": {
+    "start": "nf start -p 3000",
+    "build": "react-app-rewired build",
+    "test": "react-app-rewired test --env=jsdom",
+    "eject": "react-scripts eject",
+    "electron": "electron .",
+    "electron-start": "node src/start-react",
+    "react-start": "BROWSER=none react-app-rewired start",
+    "pack": "build --dir",
+    "dist": "npm run build && build",
+    "postinstall": "install-app-deps"
+  },
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
+然后在项目根目录创建一个 config-overrides.js 用于修改默认配置：
+const { override, fixBabelImports } = require('customize-cra');
 
-### Deployment
+module.exports = override(
+  fixBabelImports('import', {
+    libraryName: 'antd',
+    libraryDirectory: 'es',
+    style: 'css',
+  }),
+);
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
 
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
