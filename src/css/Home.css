@@ -1,0 +1,9 @@
+.home-wrapper{
+  height: 100%;
+}
+
+.home-wrapper .ant-layout-sider{
+  max-width: 300px!important;
+  min-width: 300px!important;
+  width: 300px!important;
+}

@@ -8,7 +8,7 @@ const url = require('url')
 let mainWindow
 
 function createWindow() {
-  mainWindow = new BrowserWindow({ width: 1050, height: 700, titleBarStyle: 'hidden' })
+  mainWindow = new BrowserWindow({ width: 1050, height: 700, titleBarStyle: 'hiddenInset' })
 
   mainWindow.loadURL(
     process.env.ELECTRON_START_URL ||
@@ -18,6 +18,8 @@ function createWindow() {
         slashes: true
       })
   )
+
+  mainWindow.webContents.openDevTools();
 
   mainWindow.on('closed', () => {
     mainWindow = null

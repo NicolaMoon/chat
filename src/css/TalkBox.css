@@ -1,0 +1,145 @@
+.talkbox-wrapper{
+  position: relative;
+  height: 100%;
+}
+
+.talkbox-bg{
+  height: 90%;
+  border-radius:5px;
+  background: repeating-linear-gradient(0deg, #000, #000 2px, #020 2px, #020 4px);
+}
+
+.talkbox-messagebox{
+  position:relative;
+  z-index:2;
+  height: 100%;
+  border:1px solid #2DE0DD; 
+  border-radius:5px;
+  box-shadow: 0px 0px 15px #447B82;
+  background: rgba(60,115,114,.6);
+  opacity:.9;
+}
+
+.talkbox-wrapper .bar{
+  position: absolute;
+  background: #2DE0DD;
+  box-shadow: 0px 0px 0 #2DE0DD,
+    0px 0px 4px #2DE0DD,
+    0px 0px 8px #2DE0DD,
+    0px 0px 16px #FFF;
+  border-radius: 4px;
+}
+
+.talkbox-wrapper .left{
+  width: 2px;
+  animation: talkbox-left 10s linear infinite;
+}
+
+.talkbox-wrapper .top{
+  height: 2px;
+  animation: talkbox-top 10s linear infinite;
+}
+
+.talkbox-wrapper .right{
+  width: 2px;
+  animation: talkbox-right 5s linear infinite;
+}
+
+.talkbox-wrapper .bottom{
+  height: 2px;
+  animation: talkbox-bottom 5s linear infinite;
+}
+
+.talkbox-topbar{
+  position: relative;
+  z-index: 3;
+  padding: 0 12px;
+  height: 72px;
+  background: rgba(0, 0, 0, 0.65);
+}
+
+.talkbox-topbar .ant-avatar{
+  box-shadow: 0px 0px 15px #2DE0DD;
+}
+
+.talkbox-topbar .ant-list-item-meta-title{
+  width: 480px;
+  font-size: 18px;
+  overflow : hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  color: #2DE0DD;
+}
+
+.talkbox-topbar .ant-list-item-meta-description{
+  width: 480px;
+  font-size: 12px;
+  overflow : hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  color: #26b5b3;
+}
+
+.talkbox-bars{
+  font-size: 24px;
+  color: #2DE0DD;
+}
+
+.talkbox-messages{
+  position: absolute;
+  overflow: scroll;
+  width: 100%;
+  height: 100%;
+  padding-bottom: 72px;
+}
+
+.talkbox-message{
+  position: relative;
+  padding: 12px;
+}
+
+.msg-title{
+  position: absolute;
+  top: 28px;
+  left: 64px;
+  font-size: 16px;
+  color: #2DE0DD;
+}
+
+.msg-title span{
+  margin-left: 12px;
+  font-size: 12px;
+  color: #fff;
+}
+
+.talkbox-msg{
+  display: inline-block;
+  margin: 12px 8px;
+  padding: 4px 8px;
+  border:1px solid #2DE0DD;
+  border-radius: 8px;
+  color: #2DE0DD;
+}
+
+.talkbox-message .ant-avatar{
+  cursor: pointer;
+  display: block;
+  margin: 12px 8px;
+  box-shadow: 0px 0px 15px #2DE0DD;
+}
+
+.my-word{
+  color: #1890ff;
+  background-color: #fff;
+}
+
+.talkbox-inputbox{
+  position: absolute;
+  z-index: 3;
+  bottom: 0;
+  left: 0;
+  padding: 4px 12px;
+  width: 100%;
+  min-height: 10%;
+  background: #fff;
+}

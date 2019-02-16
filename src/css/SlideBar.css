@@ -1,0 +1,40 @@
+.slidebar-wrapper, .ant-layout{
+  height: 100%;
+}
+
+.slidebar-wrapper .ant-layout-sider{
+  height: 100%;
+}
+
+.slidebar-menu{
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.slidebar-wrapper .ant-menu-item{
+  position: relative;
+  margin: 0 auto;
+	width: 70px;
+  height: 70px;
+  background: #f1f1f1;
+  border-radius: 50%;
+  box-shadow:inset 0 -3px 4px -1px rgba(0,0,0,0.2);
+  text-align: center;
+  color: rgba(0,0,0,.7);
+	transition: all .1s linear;
+}
+
+.slidebar-wrapper .ant-menu-item-selected{
+  color: rgba(38, 190, 188);
+  background-color: #e6e7e7!important;
+  box-shadow: 0 3px 15px -4px rgba(0,0,0,0.4), inset 0 -8px 25px -1px rgba(255,255,255,0.9), inset 0 8px 20px 0 rgba(0,0,0,0.2);
+}
+
+.slidebar-menu-icon{
+  position: relative;
+  top: 55%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  font-size: 24px!important;
+}

@@ -48,5 +48,6 @@
     "directories": {
       "buildResources": "public"
     }
-  }
+  },
+  "__npminstall_done": false
 }

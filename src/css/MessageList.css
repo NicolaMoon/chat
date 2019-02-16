@@ -1,0 +1,134 @@
+.messagelist-wrapper{
+  height: 100%;
+  padding: 8px 8px 0 8px;
+  background-color: #222;
+  color: #2DE0DD;
+}
+
+.messagelist-wrapper .my-name{
+  margin-top: 18px;
+  margin-bottom: 8px;
+  overflow : hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  font-size: 24px;
+}
+
+.messagelist-wrapper .my-description{
+  overflow : hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  font-size: 10px;
+}
+
+.messagelist-add{
+  position: relative;
+  margin: 0 auto;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background:transparent;
+  box-shadow: 0px 0px 8px #2DE0DD;
+  line-height: 32px;
+  text-align: center;
+
+  transition: all .3s linear;
+}
+
+.messagelist-add:hover{
+  cursor: pointer;
+  transform: rotateZ(180deg);
+  background: #2DE0DD;
+  color: #000;
+}
+
+.messagelist-search{
+  margin-top: 4px;
+}
+
+.messagelist-wrapper .ant-input{
+  background-color: #222;
+  color: #2DE0DD;
+}
+
+.messagelist-wrapper .ant-input-search-icon{
+  color: #2DE0DD;
+}
+
+.messagelist-list-box{
+  color: #2DE0DD;
+}
+
+.messagelist-list-box .ant-list-header{
+  color: #2DE0DD;
+}
+
+.messagelist-list-box .ant-empty-description{
+  color: #2DE0DD;
+}
+
+.messagelist-list-box .ant-avatar{
+  box-shadow: 0px 0px 15px #2DE0DD;
+}
+
+.messagelist-list-box .ant-list-item{
+  position: relative;
+  z-index: 2;
+  padding: 5px;
+  cursor: pointer;
+  overflow: hidden;
+  border: none;
+  color: #2DE0DD;
+}
+
+.messagelist-list-box .ant-list-item:hover .messagelist-time{
+  display: none;
+}
+
+.messagelist-list-box .ant-list-item:hover .messagelist-list-bg{
+  display: inherit;
+}
+
+.messagelist-list-box .ant-list-item-meta-title{
+  width: 180px;
+  font-size: 18px;
+  overflow : hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  color: #2DE0DD;
+}
+
+.messagelist-list-box .ant-list-item-meta-description{
+  width: 180px;
+  font-size: 12px;
+  overflow : hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  color: #26b5b3;
+}
+
+.messagelist-delete{
+  cursor: pointer;
+  margin-left: 24px;
+  font-size: 24px;
+  color: #fff;
+
+  transition: all .3s ease-in-out;
+}
+
+/* .messagelist-delete:hover{
+  color: #fc7986;
+} */
+
+.messagelist-list-bg{
+  display: none;
+  position: absolute;
+  z-index: -1;
+  top: 0;
+  left: 0;
+  height: 100%;
+  background: -webkit-linear-gradient(left, #222, #222, #222, #222, #222, #222, #222, #2DE0DD);
+
+  animation: slideIn .4s ease-in-out forwards;
+}
+
